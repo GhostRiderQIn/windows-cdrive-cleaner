@@ -8,3 +8,6 @@ $RECYCLE.BIN/
 
 # VS Code
 .vscode/
+
+# Claude Code
+.claude/
