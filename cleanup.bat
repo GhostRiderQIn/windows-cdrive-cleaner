@@ -142,13 +142,13 @@ choice /c ynq /n /m "  +-- [Y]Clean  [N]Skip  [Q]Quit: "
 set "USER_CHOICE=!errorlevel!"
 
 if !USER_CHOICE!==1 (
-    :: Y - execute cleanup
+    rem Y - execute cleanup
 ) else if !USER_CHOICE!==2 (
-    :: N - skip
+    rem N - skip
     echo   [SKIP] !MOD_NAME! - canceled by user
     goto :eof
 ) else (
-    :: Q - quit
+    rem Q - quit
     echo.
     echo   User quit. Total freed so far: !TOTAL_FREED! MB
     echo.
