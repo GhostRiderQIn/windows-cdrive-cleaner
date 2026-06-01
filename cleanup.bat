@@ -148,8 +148,8 @@ goto :eof
 
 
 :: ============================================================
-::  Helper - get folder/file size in MB (PowerShell, locale-independent)
-::  Single-line PowerShell call, no ^ continuation, no pipe inside batch ()
+::  Helper - get folder/file size in MB
+::  Uses PowerShell redirected to temp file (avoids for /f encoding issues)
 :: ============================================================
 :get_size
 set "target=%~1"
@@ -158,7 +158,11 @@ if not exist "!target!" (
     goto :eof
 )
 set "size_str=0"
-for /f %%a in ('powershell -NoProfile -Command "(Get-ChildItem -Path '!target!' -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum" 2^>nul') do set "size_str=%%a"
+powershell -NoProfile -Command "$f=Get-ChildItem -Path '!target!' -Recurse -File -ErrorAction SilentlyContinue; $s=0; foreach($i in $f){$s+=$i.Length}; $s" > "%TEMP%\__cleanup_sz.tmp" 2>nul
+if exist "%TEMP%\__cleanup_sz.tmp" (
+    set /p size_str=<"%TEMP%\__cleanup_sz.tmp"
+    del "%TEMP%\__cleanup_sz.tmp" 2>nul
+)
 if "!size_str!"=="" set "size_str=0"
 set /a "mb=!size_str! / 1048576" 2>nul
 if errorlevel 1 set /a "mb=0"
