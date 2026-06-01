@@ -1,5 +1,7 @@
 # Windows C-Drive Cleaner
 
+> 🇨🇳 [中文版本](README_CN.md)
+
 > A modular, interactive batch script to safely free up space on your Windows C drive.
 > Works on **Chinese, English, and all Windows locales**.
 

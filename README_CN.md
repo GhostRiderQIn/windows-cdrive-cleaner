@@ -1,5 +1,7 @@
 # Windows C盘清理工具
 
+> 🇺🇸 [English Version](README.md)
+
 > 模块化、交互式的 Windows C 盘空间清理批处理脚本，安全释放磁盘空间。
 > **兼容中文、英文及所有 Windows 语言版本。**
 
