@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m 'refactor: keep only 2 active modules \\(DXCache + hiberfil\\), comment out rest *)",
+      "Bash(git push *)"
+    ]
+  }
+}

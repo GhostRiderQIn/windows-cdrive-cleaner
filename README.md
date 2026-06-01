@@ -5,7 +5,7 @@
 
 ## Quick Start
 
-1. **Right-click → Run as Administrator** on `cleanup.bat` (unlocks all 13 cleanup modules)
+1. **Right-click → Run as Administrator** on `cleanup.bat`
 2. Each item is **scanned first**, then you **decide** whether to clean
 3. Press `Y` to clean, `N` to skip, `Q` to quit
 
@@ -17,7 +17,7 @@ cleanup.bat --dry-run
 cleanup.bat -d
 ```
 
-Scans all items and shows what *could* be freed, but **does not delete anything**. No confirmation prompts — just a full report.
+Scans all active items and shows what *could* be freed, but **does not delete anything**.
 
 ```
   +-- NVIDIA Shader Cache (DXCache)
@@ -26,13 +26,22 @@ Scans all items and shows what *could* be freed, but **does not delete anything*
   +-- [Y]Clean  [N]Skip  [Q]Quit:
 ```
 
-## Cleanup Modules (13 items)
+## Active Cleanup Modules
 
 | Module | Admin | Path |
 |--------|:---:|------|
 | NVIDIA Shader Cache (DXCache) | | `%LOCALAPPDATA%\NVIDIA\DXCache` |
-| NVIDIA Shader Cache (GLCache) | | `%LOCALAPPDATA%\NVIDIA\GLCache` |
 | Hibernation file (hiberfil.sys) | ⚡ | `C:\hiberfil.sys` (disables hibernation) |
+
+⚡ = Requires Administrator privileges
+
+## Inactive Modules (commented out)
+
+Uncomment the `call :module` lines in `cleanup.bat` to enable:
+
+| Module | Admin | Path |
+|--------|:---:|------|
+| NVIDIA Shader Cache (GLCache) | | `%LOCALAPPDATA%\NVIDIA\GLCache` |
 | Windows Temp files | | `%TEMP%` + `C:\Windows\Temp` |
 | Recycle Bin | | All drives `$Recycle.Bin` |
 | Browser cache (Chrome / Edge) | | Chrome + Edge Cache |
@@ -43,8 +52,6 @@ Scans all items and shows what *could* be freed, but **does not delete anything*
 | Prefetch files | ⚡ | `C:\Windows\Prefetch\*.pf` |
 | pip package cache | | `%LOCALAPPDATA%\pip\cache` |
 | npm package cache | | `%LOCALAPPDATA%\npm-cache` |
-
-⚡ = Requires Administrator privileges
 
 ## How to Add a New Cleanup Module
 
@@ -79,6 +86,7 @@ The third parameter `1` means requires Admin (`0` for no Admin). The dispatcher 
 - **Fix:** Folder size calculation rewritten to use PowerShell, now works on any Windows locale (was Chinese-only)
 - **Fix:** Browser cache path corrected from `Cache\Cache_Data` to `Cache`
 - **Fix:** UI changed to English for cross-locale compatibility
+- **Feat:** `--dry-run` / `-d` flag for scan-only mode
 
 ### v1.1
 - Two-step cleanup: scan first, confirm before deleting
